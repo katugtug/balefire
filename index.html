@@ -4,28 +4,50 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Brice</title>
-
-    <!-- Bootstrap -->
+    <title>Balefire</title>
     <link href="css/bootstrap.css" rel="stylesheet">
     <link href="css/tribune.css" rel="stylesheet">
-
+    <script src="js/vendor/jquery.min.js"></script>
+    <script src="js/vendor/mustache.js"></script>
+    <script src="js/bootstrap.min.js"></script>
+    <script src="js/google-ads.js"></script>    
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
     <!--[if lt IE 9]>
       <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
       <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
     <![endif]-->
-    
-    <!-- GOOGLE AD STUFF -->
-      <script type='text/javascript'>
-        googletag.cmd.push(function() {
-        googletag.defineSlot('/1675662/Preview_Cube', [300, 250], 'div-gpt-ad-1406842336807-0').addService(googletag.pubads());
-        googletag.pubads().enableSingleRequest();
-        googletag.enableServices();
+
+    <script>
+      function loadArticle(json_data, template_path) {
+        console.log("Load Article called", json_data, template_path);
+        template_path = template_path || 'templates/article-template.mst';
+        $.get(template_path, function(template) {
+          var rendered = Mustache.render(template, json_data);
+          $('#article-wrapper').html(rendered);
         });
-      </script>
+      }
+      $(document).ready(function(){
+        var url = 'http://www.columbiatribune.com/article/?id=d086f7a8-1b6b-5cfa-8310-c835490928ed';
+        $.ajax({
+         type: 'GET',
+          url: url,
+          async: false,
+          jsonpCallback: 'jsonCallback',
+          contentType: "application/json",
+          dataType: 'jsonp',
+          success: function(json) {
+             console.log("ajax call successful. URL ",url, " Object returned: ",json);
+             loadArticle(json);
+          },
+          error: function(e) {
+             console.log(e.message);
+          }
+        });
+      });
+    </script>
   </head>
+  
   <body role="document">
     <nav class="navbar navbar-default" role="navigation">
       <div class="container">
@@ -72,74 +94,23 @@
       </div><!-- /.container-fluid -->
     </nav>
 
+
+    
     <div class="container">
       <div class="row">
         <div class="col-md-8 show-grid">
           <img style="width:100%" src="img\53da7f410982f.image.jpg"/>
-          <h1>Teachers get technology boost before returning to classrooms</h1>
-          <span class="clearfix"></span>
-          <p class="lead">Heather Beach, a teacher at New Franklin Elementary School, was enthusiastic after attending a session on using social media in the classroom.</p>
-          <p>“I really want to start a Twitter account to get parents more involved,” she said.</p>
-          <p>Beach was one of dozens of teachers who attended an event yesterday that featured 65 education technology training sessions. The event, dubbed “Technopalooza,” was held for the second year at Battle High School.</p>
-          <p>“I teach first grade, and it was interesting the things that 7-year-olds can do,” she said.</p>
-          <p>Beach said she is ready for the school year to begin. “I’m really excited to get out there and get started,” she said.</p>
-          <p>Matt Villasana, Columbia Public Schools instructional technology specialist, is an organizer of the event. He said the number of sessions has doubled from what was offered during <a href="http://www.columbiatribune.com/news/education/columbia-public-schools-teachers-get-schooled-on-technology/article_37b864f8-0050-11e3-85b0-10604b9f1ff4.html">the first event last summer.</a> He said most of the presenters and session participants are teachers in the district, but there were some of each from outside the district, too.</p>
-          <p>“It’s just a full day of professional development,” Villasana said.</p>
-          <p>He said students from kindergarten through 12th grade have Google accounts, and students as young as third-graders are producing blogs and participating in Google Hangouts.</p>
-          <p>“There’s just been a huge explosion in what technologies teachers are using in the classroom,” Villasana said.</p>
-          <p>Participants and presenters were using the hashtag <a href="https://twitter.com/search?q=%23cpsT2&src=typd">#cpsT2</a> in their tweets.</p>
-          <p>Later in the day, she said, “Matt V you rock! It is a great day at Technopalooza!”</p>
-          <p>Julie Smith, an instructor in media literacy at Webster University, presented a session on using social media that Beach attended. She promoted the use of Twitter chats, especially with other teachers.</p>
-          <blockquote>
-            <p>“Oh, my God, it’s a life-changer,” Smith said.</p>
-          </blockquote>
-          <p>Teachers are a driving force on Twitter, she said.</p>
-          <p>Smith also talked about using Instagram.</p>
-          <p>“Instagram is like a visual Twitter,” she said. “Where are all the teens going? Instagram. Because we’re on Facebook.”</p>
-          <p>Smith said email was nearly useless now. She said social media have been portrayed unfairly.</p>
-          <p>“When social media is in the news, what do they talk about?” Smith said. “Negative. They talk about bullying and sexual predators. It drives me crazy.”</p>
-          <p>Sherry Schaefer, who will be teaching sixth-grade math at Oakland Middle School, said she attended sessions about using educational software applications Blackboard and Notability, and Google Drive, a cloud-based platform for storage and sharing files. She said Notability will be useful for students who miss class because of illness.</p>
-          <p>Schaefer said she is of the generation between the one that’s very tech-savvy and the one that isn’t.</p>
-          <p>“It’s just like any resource,” she said.</p>
-          <p><em>This story was first published online on Wednesday, July 30, 2014 at 3:50 p.m.</em></p>
+          <div id="article-wrapper"></div>
         </div>
         <div class="col-md-4">
           <!-- Preview_Cube -->
-          <div id='div-gpt-ad-1406842336807-0' style='width:300px; height:250px;'>
-          <script type='text/javascript'>
-          googletag.cmd.push(function() { googletag.display('div-gpt-ad-1406842336807-0'); });
-          </script>
+          <div id='ad-cube-1' style='width:300px; height:250px;'>
+            <script type='text/javascript'>googletag.cmd.push(function() { googletag.display('ad-cube-1'); });</script>
           </div>
         </div>
         
       </div>
     </div>
-    
-    
-    
-    
-    
-    
-    
-    <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
-    <!-- Include all compiled plugins (below), or include individual files as needed -->
-    <script src="js/bootstrap.min.js"></script>
-    <script type='text/javascript'>
-      var googletag = googletag || {};
-      googletag.cmd = googletag.cmd || [];
-      (function() {
-      var gads = document.createElement('script');
-      gads.async = true;
-      gads.type = 'text/javascript';
-      var useSSL = 'https:' == document.location.protocol;
-      gads.src = (useSSL ? 'https:' : 'http:') + 
-      '//www.googletagservices.com/tag/js/gpt.js';
-      var node = document.getElementsByTagName('script')[0];
-      node.parentNode.insertBefore(gads, node);
-      })();
-      </script>
-
 
   </body>
 </html>

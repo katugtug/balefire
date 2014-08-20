@@ -1,0 +1,10 @@
+<h2>{{title}}</h2>
+<span class="clearfix"></span>
+<h4>{{byline}}</h4>
+<span class="clearfix"></span>
+<div class="article">
+  {{#content}}
+  {{{.}}}
+  {{/content}}
+  
+</div>
